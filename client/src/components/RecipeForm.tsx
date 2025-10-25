@@ -13,7 +13,7 @@ export default function RecipeForm() {
       ingredients: ingredients.split(","),
       instructions,
     });
-    title = "";
+    setTitle("");
     setIngredients("");
     setInstructions("");
   };
@@ -22,7 +22,7 @@ export default function RecipeForm() {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Title</label>
-        <input value={title} />
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
       <div>
         <label>Ingredients (comma separated)</label>

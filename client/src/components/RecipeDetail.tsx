@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchRecipe } from "../api";
+import { fetchRecipes } from "../api";
+import { RecipeType } from "../types";
 
 export default function RecipeDetail({ id }: { id: string }) {
-  const [recipe, setRecipe] = useState<any>(null);
+  const [recipe, setRecipe] = useState<RecipeType | null>(null);
 
   useEffect(() => {
-    fetchRecipe(id).then((r) => setRecipe(r));
+    fetchRecipes(id).then((r: RecipeType) => setRecipe(r));
   }, []);
 
   if (!recipe) return <div>Loading...</div>;
@@ -15,9 +16,11 @@ export default function RecipeDetail({ id }: { id: string }) {
       <h3>{recipe.title}</h3>
       <p>{recipe.instructions}</p>
       <ul>
-        {recipe.ingredients.map((ing: string) => (
-          <li>{ing}</li>
-        ))}
+        {recipe.ingredients.length > 0 ? (
+          recipe.ingredients.map((ing: string) => <li>{ing}</li>)
+        ) : (
+          <p>No Ingredients To Share Currently!</p>
+        )}
       </ul>
     </div>
   );
